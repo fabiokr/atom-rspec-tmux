@@ -1,0 +1,16 @@
+{
+  "name": "spin",
+  "main": "./lib/spin",
+  "version": "0.0.1",
+  "description": "Runs Ruby Spin",
+  "activationCommands": {
+    "atom-workspace": "spin:run"
+  },
+  "repository": "https://github.com/atom/spin",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=0.174.0 <2.0.0"
+  },
+  "dependencies": {
+  }
+}
