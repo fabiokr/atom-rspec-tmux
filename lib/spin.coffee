@@ -19,7 +19,7 @@ module.exports = Spin =
     atom.workspace.getActiveTextEditor()
 
   getCurrentLine: ->
-    @getEditor().getCursorBufferPosition().row
+    @getEditor().getCursorBufferPosition().row + 1
 
   getCurrentPath: ->
     @getEditor().getPath()
@@ -32,6 +32,15 @@ module.exports = Spin =
     # Returns longest match
     return matches.sort((a, b) -> (b.length - a.length))[0]
 
+  getProjectName: ->
+    parts = @getRoot().split("/")
+    return parts[parts.length - 1]
+
   run: ->
+    project = @getProjectName()
+
     require('child_process')
-      .exec("spin push #{@getCurrentPath()}:#{@getCurrentLine()}", { cwd: @getRoot() })
+      .exec("tmux send-keys -t \'#{project}\' C-z 'rspec -b #{@getCurrentPath()}:#{@getCurrentLine()}' Enter")
+
+    require('child_process')
+      .exec("tmux select-window -t '#{project}'")
